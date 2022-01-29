@@ -1,5 +1,8 @@
 package ru.webanimal.test52_compose01
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -96,14 +100,20 @@ private fun ButtonWithTextUpdate(
 @Composable
 private fun ListItemWithButton(text: String) {
 
-    var isExpanded by remember { mutableStateOf(false) }
-    val paddingExpansion = if (isExpanded) 32.dp else 0.dp
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    val paddingExpansion by animateDpAsState(
+        targetValue = if (isExpanded) 32.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioHighBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(bottom = paddingExpansion)
+                .padding(bottom = paddingExpansion.coerceAtLeast(0.dp))
         ) {
             SimpleText(text = text)
         }
