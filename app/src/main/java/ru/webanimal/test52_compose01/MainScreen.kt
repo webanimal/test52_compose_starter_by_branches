@@ -1,5 +1,6 @@
 package ru.webanimal.test52_compose01
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -24,6 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.webanimal.test52_compose01.MainScreenState.Content
 import ru.webanimal.test52_compose01.MainScreenState.Default
@@ -75,7 +78,9 @@ private fun SimpleText(text: String) {
 
     Text(
         text = text,
-        style = MaterialTheme.typography.body1,
+        style = MaterialTheme.typography.body1.copy(
+            fontWeight = FontWeight.ExtraBold
+        ),
         modifier = Modifier
             .padding(all = 16.dp)
             .fillMaxWidth()
@@ -134,7 +139,7 @@ private fun VerticalListWithHeader(
 ) {
 
     Column {
-        Surface(color = MaterialTheme.colors.primaryVariant) {
+        Surface(color = MaterialTheme.colors.surface) {
             header()
         }
         LazyColumn {
@@ -145,4 +150,12 @@ private fun VerticalListWithHeader(
             }
         }
     }
+}
+
+@Preview(showBackground = true, widthDp = 420, uiMode = UI_MODE_NIGHT_YES, name = "DefaultPreviewDark")
+@Preview(showBackground = true, widthDp = 420)
+@Composable
+private fun DefaultPreview() {
+
+    ThemeWrapper { MainScreen() }
 }
