@@ -1,18 +1,22 @@
 package ru.webanimal.test52_compose01
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,7 +29,7 @@ import ru.webanimal.test52_compose01.MainScreenState.Error
 import ru.webanimal.test52_compose01.MainScreenState.Loading
 import ru.webanimal.test52_compose01.R.string
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,29 +61,48 @@ class MainActivity : AppCompatActivity() {
     @Composable
     private fun TitleText(text: String) {
 
-        Surface(color = MaterialTheme.colors.primaryVariant) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.h3,
-                modifier = Modifier
-                    .padding(all = 24.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(align = Alignment.Center)
-            )
-        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.h3,
+            modifier = Modifier
+                .padding(all = 24.dp)
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.Center)
+        )
     }
 
     @Composable
     private fun SimpleText(text: String) {
 
-        Surface(color = MaterialTheme.colors.primary) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .padding(all = 16.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(align = Alignment.CenterStart)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.body1,
+            modifier = Modifier
+                .padding(all = 16.dp)
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.CenterStart)
+        )
+    }
+
+    @Composable
+    private fun ButtonWithTextUpdate(firstText: String, secondText: String) {
+
+        val isExpanded = remember { mutableStateOf(false) }
+        OutlinedButton(onClick = { isExpanded.value = !isExpanded.value }) {
+            Text(text = if (isExpanded.value) firstText else secondText)
+        }
+    }
+
+    @Composable
+    private fun ListItemWithButton(text: String) {
+
+        Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
+            Column(modifier = Modifier.weight(1f)) {
+                SimpleText(text = text)
+            }
+            ButtonWithTextUpdate(
+                firstText = stringResource(id = string.main_button_first),
+                secondText = stringResource(id = string.main_button_second)
             )
         }
     }
@@ -91,8 +114,14 @@ class MainActivity : AppCompatActivity() {
     ) {
 
         Column {
-            titleItem()
-            data.forEach { SimpleText(it) }
+            Surface(color = MaterialTheme.colors.primaryVariant) {
+                titleItem()
+            }
+            data.forEach {
+                Surface(color = MaterialTheme.colors.primary) {
+                    ListItemWithButton(text = it)
+                }
+            }
         }
     }
 
