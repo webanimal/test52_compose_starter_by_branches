@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
@@ -28,20 +30,26 @@ import ru.webanimal.test52_compose01.R.string
 
 @Composable
 internal fun MainScreen(
-    viewModel: MainViewModel = MainViewModel(initState = Default),
+    viewModel: MainViewModel = MainViewModel(
+        initState = Content(
+            title = stringResource(id = string.main_title_default),
+            data = List(1000) { "$it" }
+        ),
+    ),
 ) {
 
     val viewState by viewModel.viewState.collectAsState()
     val title = when (viewState) {
+        is Content -> (viewState as Content).title
         Default -> stringResource(id = string.main_title_default)
-        Loading -> stringResource(id = string.main_title_loading)
-        is Content -> (viewState as Content).text
         Empty -> stringResource(id = string.main_title_empty)
         Error -> stringResource(id = string.main_title_error)
+        Loading -> stringResource(id = string.main_title_loading)
     }
-    VerticalSimpleList(
-        titleItem = { TitleText(text = title) },
-        data = listOf("Maria", "Asja", "Sveta", "Lena", "Katja")
+    val data = (viewState as? Content)?.data ?: emptyList()
+    VerticalListWithHeader(
+        header = { TitleText(text = title) },
+        dataSet = data
     )
 }
 
@@ -110,18 +118,20 @@ private fun ListItemWithButton(text: String) {
 }
 
 @Composable
-private fun VerticalSimpleList(
-    titleItem: @Composable () -> Unit,
-    data: List<String>,
+private fun VerticalListWithHeader(
+    header: @Composable () -> Unit,
+    dataSet: List<String>,
 ) {
 
     Column {
         Surface(color = MaterialTheme.colors.primaryVariant) {
-            titleItem()
+            header()
         }
-        data.forEach {
-            Surface(color = MaterialTheme.colors.primary) {
-                ListItemWithButton(text = it)
+        LazyColumn {
+            items(items = dataSet) { text ->
+                Surface(color = MaterialTheme.colors.primary) {
+                    ListItemWithButton(text = text)
+                }
             }
         }
     }
