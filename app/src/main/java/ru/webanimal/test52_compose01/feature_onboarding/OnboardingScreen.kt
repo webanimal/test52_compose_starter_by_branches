@@ -1,4 +1,4 @@
-package ru.webanimal.test52_compose01
+package ru.webanimal.test52_compose01.feature_onboarding
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ru.webanimal.test52_compose01.R
+import ru.webanimal.test52_compose01.core.compose.SimpleText
+import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
 fun OnboardingScreen(

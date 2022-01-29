@@ -1,4 +1,4 @@
-package ru.webanimal.test52_compose01
+package ru.webanimal.test52_compose01.core.compose
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package ru.webanimal.test52_compose01
+package ru.webanimal.test52_compose01.feature_main
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.animateContentSize
@@ -36,18 +36,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.webanimal.test52_compose01.MainScreenState.Content
-import ru.webanimal.test52_compose01.MainScreenState.Default
-import ru.webanimal.test52_compose01.MainScreenState.Empty
-import ru.webanimal.test52_compose01.MainScreenState.Error
-import ru.webanimal.test52_compose01.MainScreenState.Loading
-import ru.webanimal.test52_compose01.R.string
+import ru.webanimal.test52_compose01.R
+import ru.webanimal.test52_compose01.core.compose.SimpleText
+import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
+import ru.webanimal.test52_compose01.core.compose.TitleText
+import ru.webanimal.test52_compose01.feature_main.MainScreenState.Content
+import ru.webanimal.test52_compose01.feature_main.MainScreenState.Default
+import ru.webanimal.test52_compose01.feature_main.MainScreenState.Empty
+import ru.webanimal.test52_compose01.feature_main.MainScreenState.Error
+import ru.webanimal.test52_compose01.feature_main.MainScreenState.Loading
 
 @Composable
 internal fun MainScreen(
     viewModel: MainViewModel = MainViewModel(
         initState = Content(
-            title = stringResource(id = string.main_title_default),
+            title = stringResource(id = R.string.main_title_default),
             data = List(1000) { "$it" }
         ),
     ),
@@ -56,10 +59,10 @@ internal fun MainScreen(
     val viewState by viewModel.viewState.collectAsState()
     val title = when (viewState) {
         is Content -> (viewState as Content).title
-        Default -> stringResource(id = string.main_title_default)
-        Empty -> stringResource(id = string.main_title_empty)
-        Error -> stringResource(id = string.main_title_error)
-        Loading -> stringResource(id = string.main_title_loading)
+        Default -> stringResource(id = R.string.main_title_default)
+        Empty -> stringResource(id = R.string.main_title_empty)
+        Error -> stringResource(id = R.string.main_title_error)
+        Loading -> stringResource(id = R.string.main_title_loading)
     }
     val data = (viewState as? Content)?.data ?: emptyList()
     VerticalListWithHeader(
@@ -120,13 +123,13 @@ private fun CardContent(text: String) {
                 .fillMaxHeight()
                 .wrapContentHeight(align = Alignment.CenterVertically)
         ) {
-            SimpleText(text = stringResource(id = string.main_item_title))
+            SimpleText(text = stringResource(id = R.string.main_item_title))
             Spacer(modifier = Modifier.height(4.dp))
             SimpleText(text)
             if (isExpanded) {
                 Spacer(modifier = Modifier.height(4.dp))
                 SimpleText(
-                    text = stringResource(id = string.main_item_expandable_text).repeat(4)
+                    text = stringResource(id = R.string.main_item_expandable_text).repeat(4)
                 )
             }
         }
@@ -134,8 +137,8 @@ private fun CardContent(text: String) {
         Spacer(modifier = Modifier.width(4.dp))
 
         IconButtonUpdatable(
-            collapsedDescription = stringResource(id = string.main_button_first),
-            expandedDescription = stringResource(id = string.main_button_second)
+            collapsedDescription = stringResource(id = R.string.main_button_first),
+            expandedDescription = stringResource(id = R.string.main_button_second)
         ) {
             isExpanded = !isExpanded
             return@IconButtonUpdatable isExpanded

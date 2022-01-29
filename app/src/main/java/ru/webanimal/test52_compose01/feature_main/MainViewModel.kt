@@ -1,4 +1,4 @@
-package ru.webanimal.test52_compose01
+package ru.webanimal.test52_compose01.feature_main
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
