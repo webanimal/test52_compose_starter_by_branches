@@ -85,25 +85,40 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun ButtonWithTextUpdate(firstText: String, secondText: String) {
+    private fun ButtonWithTextUpdate(
+        collapsedText: String,
+        expandedText: String,
+        onClick: () -> Boolean,
+    ) {
 
         val isExpanded = remember { mutableStateOf(false) }
-        OutlinedButton(onClick = { isExpanded.value = !isExpanded.value }) {
-            Text(text = if (isExpanded.value) firstText else secondText)
+
+        OutlinedButton(onClick = { isExpanded.value = onClick() }) {
+            Text(text = if (isExpanded.value) expandedText else collapsedText)
         }
     }
 
     @Composable
     private fun ListItemWithButton(text: String) {
 
+        val isExpanded = remember { mutableStateOf(false) }
+        val paddingExpansion = if (isExpanded.value) 32.dp else 0.dp
+
         Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = paddingExpansion)
+            ) {
                 SimpleText(text = text)
             }
             ButtonWithTextUpdate(
-                firstText = stringResource(id = string.main_button_first),
-                secondText = stringResource(id = string.main_button_second)
-            )
+                collapsedText = stringResource(id = string.main_button_first),
+                expandedText = stringResource(id = string.main_button_second)
+            ) {
+                isExpanded.value = !isExpanded.value
+                return@ButtonWithTextUpdate isExpanded.value
+            }
         }
     }
 
