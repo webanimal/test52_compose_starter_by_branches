@@ -26,7 +26,10 @@ fun OnboardingScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = stringResource(id = R.string.onboarding_welcome_text))
+            SimpleText(
+                text = stringResource(id = R.string.onboarding_welcome_text),
+                alignment = Alignment.Center
+            )
             Button(
                 modifier = Modifier.padding(vertical = 24.dp),
                 onClick = { onContinueClick() }

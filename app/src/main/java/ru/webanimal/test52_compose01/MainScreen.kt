@@ -6,9 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -22,10 +20,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.webanimal.test52_compose01.MainScreenState.Content
@@ -61,49 +57,27 @@ internal fun MainScreen(
 }
 
 @Composable
-private fun TitleText(text: String) {
-
-    Text(
-        text = text,
-        style = MaterialTheme.typography.h3,
-        modifier = Modifier
-            .padding(all = 24.dp)
-            .fillMaxWidth()
-            .wrapContentSize(align = Alignment.Center)
-    )
-}
-
-@Composable
-private fun SimpleText(text: String) {
-
-    Text(
-        text = text,
-        style = MaterialTheme.typography.body1.copy(
-            fontWeight = FontWeight.ExtraBold
-        ),
-        modifier = Modifier
-            .padding(all = 16.dp)
-            .fillMaxWidth()
-            .wrapContentSize(align = Alignment.CenterStart)
-    )
-}
-
-@Composable
-private fun ButtonWithTextUpdate(
-    collapsedText: String,
-    expandedText: String,
-    onClick: () -> Boolean,
+private fun VerticalListWithHeader(
+    header: @Composable () -> Unit,
+    dataSet: List<String>,
 ) {
 
-    var isExpanded by remember { mutableStateOf(false) }
-
-    OutlinedButton(onClick = { isExpanded = onClick() }) {
-        Text(text = if (isExpanded) expandedText else collapsedText)
+    Column {
+        Surface(color = MaterialTheme.colors.surface) {
+            header()
+        }
+        LazyColumn {
+            items(items = dataSet) { text ->
+                Surface(color = MaterialTheme.colors.primary) {
+                    AnimatedListItemWithButton(text = text)
+                }
+            }
+        }
     }
 }
 
 @Composable
-private fun ListItemWithButton(text: String) {
+private fun AnimatedListItemWithButton(text: String) {
 
     var isExpanded by rememberSaveable { mutableStateOf(false) }
     val paddingExpansion by animateDpAsState(
@@ -120,7 +94,7 @@ private fun ListItemWithButton(text: String) {
                 .weight(1f)
                 .padding(bottom = paddingExpansion.coerceAtLeast(0.dp))
         ) {
-            SimpleText(text = text)
+            SimpleText(text)
         }
         ButtonWithTextUpdate(
             collapsedText = stringResource(id = string.main_button_first),
@@ -133,22 +107,16 @@ private fun ListItemWithButton(text: String) {
 }
 
 @Composable
-private fun VerticalListWithHeader(
-    header: @Composable () -> Unit,
-    dataSet: List<String>,
+private fun ButtonWithTextUpdate(
+    collapsedText: String,
+    expandedText: String,
+    onClick: () -> Boolean,
 ) {
 
-    Column {
-        Surface(color = MaterialTheme.colors.surface) {
-            header()
-        }
-        LazyColumn {
-            items(items = dataSet) { text ->
-                Surface(color = MaterialTheme.colors.primary) {
-                    ListItemWithButton(text = text)
-                }
-            }
-        }
+    var isExpanded by remember { mutableStateOf(false) }
+
+    OutlinedButton(onClick = { isExpanded = onClick() }) {
+        Text(text = if (isExpanded) expandedText else collapsedText)
     }
 }
 
