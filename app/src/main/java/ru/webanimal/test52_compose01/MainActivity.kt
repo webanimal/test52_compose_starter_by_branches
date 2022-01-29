@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.material.composethemeadapter.MdcTheme
 import ru.webanimal.test52_compose01.MainScreenState.Content
 import ru.webanimal.test52_compose01.MainScreenState.Default
 import ru.webanimal.test52_compose01.MainScreenState.Empty
@@ -30,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MdcTheme {
-                SetupViewStateViaVM()
-            }
+            ThemeWrapper { SetupViewStateViaVM() }
         }
     }
 
@@ -64,8 +62,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    @Preview
+    private fun ThemeWrapper(content: @Composable () -> Unit) {
+        MaterialTheme {
+            Surface(color = MaterialTheme.colors.background) {
+                content()
+            }
+        }
+    }
+
+    @Preview(showBackground = true)
+    @Composable
     private fun DefaultPreview() {
-        InitTitle(text = stringResource(id = string.main_title_empty))
+        ThemeWrapper { SetupViewStateViaVM() }
     }
 }
