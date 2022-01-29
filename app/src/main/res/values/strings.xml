@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">Compose Test</string>
+    <string name="main_title_default">Hello World!</string>
+    <string name="main_title_loading">Is loading…</string>
+    <string name="main_title_empty">There is no data</string>
+    <string name="main_title_error">Something went wrong</string>
+
+</resources>
