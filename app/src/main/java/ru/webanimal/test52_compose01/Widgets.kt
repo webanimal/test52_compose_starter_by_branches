@@ -18,7 +18,7 @@ fun TitleText(text: String) {
         text = text,
         style = MaterialTheme.typography.h3,
         modifier = Modifier
-            .padding(all = 24.dp)
+            .padding(all = 16.dp)
             .fillMaxWidth()
             .wrapContentSize(align = Alignment.Center)
     )
@@ -27,15 +27,13 @@ fun TitleText(text: String) {
 @Composable
 fun SimpleText(text: String, alignment: Alignment? = null) {
 
-    val modifier = Modifier
-        .padding(all = 16.dp)
-        .fillMaxWidth()
-        .wrapContentSize(align = alignment ?: Alignment.CenterStart)
     Text(
         text = text,
         style = MaterialTheme.typography.body1.copy(
             fontWeight = FontWeight.ExtraBold
         ),
-        modifier = modifier
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(align = alignment ?: Alignment.CenterStart)
     )
 }
