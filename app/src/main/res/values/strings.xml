@@ -8,4 +8,7 @@
     <string name="main_button_first">Collapsed</string>
     <string name="main_button_second">Expanded</string>
 
+    <string name="onboarding_welcome_text">Welcome to the Basics Codelab!</string>
+    <string name="onboarding_button_next_text">Continue</string>
+
 </resources>
