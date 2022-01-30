@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
@@ -41,11 +43,13 @@ import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
 fun MarketplaceScreen() {
+
     TopBar()
 }
 
 @Composable
 private fun TopBar(modifier: Modifier = Modifier) {
+
     Scaffold(
         topBar = { TopBarContent(modifier) }
     ) { innerPadding ->
@@ -77,13 +81,22 @@ private fun TopBarContent(modifier: Modifier = Modifier) {
 
 @Composable
 private fun BodyContent(modifier: Modifier = Modifier) {
-    Column(modifier) {
-        DoubleTextWithAvatarItem(modifier)
+
+    val scrollState = rememberLazyListState()
+
+    LazyColumn(state = scrollState) {
+        items(LIST_ITEM_COUNT) { pos ->
+            DoubleTextWithAvatarItem(modifier, position = pos)
+        }
     }
 }
 
 @Composable
-private fun DoubleTextWithAvatarItem(modifier: Modifier = Modifier) {
+private fun DoubleTextWithAvatarItem(
+    modifier: Modifier = Modifier,
+    position: Int,
+) {
+
     Row(
         modifier
             .fillMaxWidth()
@@ -105,10 +118,16 @@ private fun DoubleTextWithAvatarItem(modifier: Modifier = Modifier) {
                 .padding(start = 8.dp)
                 .align(alignment = Alignment.CenterVertically)
         ) {
-            Text(text = stringResource(id = R.string.marketplace_item_title), fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(id = R.string.marketplace_item_title),
+                fontWeight = FontWeight.Bold
+            )
             // LocalContentAlpha is defining opacity level of its children
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(text = stringResource(id = R.string.marketplace_item_text), style = MaterialTheme.typography.body2)
+                Text(
+                    text = stringResource(id = R.string.marketplace_item_text, position),
+                    style = MaterialTheme.typography.body2
+                )
             }
         }
     }
@@ -121,3 +140,5 @@ private fun DefaultPreview() {
 
     ThemeWrapper { MarketplaceScreen() }
 }
+
+private const val LIST_ITEM_COUNT = 100
