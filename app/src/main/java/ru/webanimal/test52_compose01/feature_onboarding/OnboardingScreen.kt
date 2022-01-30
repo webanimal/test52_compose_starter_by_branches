@@ -20,7 +20,7 @@ import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
 fun OnboardingScreen(
-    onContinueClick: () -> Unit,
+    onContinueClick: () -> Unit
 ) {
 
     Surface {

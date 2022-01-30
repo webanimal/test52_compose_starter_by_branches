@@ -9,28 +9,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
-import ru.webanimal.test52_compose01.feature_main.MainScreen
-import ru.webanimal.test52_compose01.feature_onboarding.OnboardingScreen
 
 class MainActivity : ComponentActivity() {
+
+    val screenProvider by lazy { ScreenProvider() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ThemeWrapper { MyApp() }
+            ThemeWrapper { CodelabLayoutsApp() }
         }
     }
 
     @Composable
-    private fun MyApp() {
+    private fun CodelabLayoutsApp() {
+        screenProvider.Marketplace()
+    }
+
+    @Composable
+    private fun CodelabBasicsApp() {
 
         var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
         if (shouldShowOnboarding) {
-            OnboardingScreen(onContinueClick = { shouldShowOnboarding = false })
+            screenProvider.Onboarding(onContinueClick = { shouldShowOnboarding = false })
 
         } else {
-            MainScreen()
+            screenProvider.Main()
         }
     }
 }
