@@ -8,21 +8,25 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +36,40 @@ import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
 fun MarketplaceScreen() {
-    DoubleTextWithAvatarItem()
+    TopBar()
+}
+
+@Composable
+private fun TopBar(modifier: Modifier = Modifier) {
+    Scaffold(
+        topBar = { TopBarContent(modifier) }
+    ) { innerPadding ->
+        BodyContent(modifier.padding(innerPadding))
+    }
+}
+
+@Composable
+private fun TopBarContent(modifier: Modifier = Modifier) {
+    TopAppBar(
+        title = {
+            Text(text = stringResource(id = R.string.marketplace_top_bar_title))
+        },
+        actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Favorite,
+                    contentDescription = stringResource(id = R.string.marketplace_top_bar_action_favorite_description)
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun BodyContent(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        DoubleTextWithAvatarItem(modifier)
+    }
 }
 
 @Composable
