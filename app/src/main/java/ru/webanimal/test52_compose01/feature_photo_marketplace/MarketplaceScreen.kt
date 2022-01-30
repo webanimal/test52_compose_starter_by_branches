@@ -21,8 +21,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,14 +55,19 @@ private fun TopBar(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TopBarContent(modifier: Modifier = Modifier) {
+
+    var isAversVisible by rememberSaveable { mutableStateOf(true) }
+
     TopAppBar(
         title = {
             Text(text = stringResource(id = R.string.marketplace_top_bar_title))
         },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                isAversVisible = !isAversVisible
+            }) {
                 Icon(
-                    imageVector = Icons.Filled.Favorite,
+                    imageVector = if (isAversVisible) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
                     contentDescription = stringResource(id = R.string.marketplace_top_bar_action_favorite_description)
                 )
             }
