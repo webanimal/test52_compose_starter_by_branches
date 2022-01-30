@@ -93,8 +93,8 @@ private fun VerticalListWithHeader(
 private fun AnimatedListItemWithButton(text: String) {
 
     Card(
+        Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         backgroundColor = MaterialTheme.colors.primary,
-        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
         CardContent(text = text)
     }
@@ -106,7 +106,7 @@ private fun CardContent(text: String) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
     Row(
-        modifier = Modifier
+        Modifier
             .padding(all = 12.dp)
             .animateContentSize(
                 animationSpec = spring(
@@ -118,23 +118,23 @@ private fun CardContent(text: String) {
     ) {
 
         Column(
-            modifier = Modifier
+            Modifier
                 .weight(1f)
                 .fillMaxHeight()
                 .wrapContentHeight(align = Alignment.CenterVertically)
         ) {
             SimpleText(text = stringResource(id = R.string.main_item_title))
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(Modifier.height(4.dp))
             SimpleText(text)
             if (isExpanded) {
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(Modifier.height(4.dp))
                 SimpleText(
                     text = stringResource(id = R.string.main_item_expandable_text).repeat(4)
                 )
             }
         }
 
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(Modifier.width(4.dp))
 
         IconButtonUpdatable(
             collapsedDescription = stringResource(id = R.string.main_button_first),

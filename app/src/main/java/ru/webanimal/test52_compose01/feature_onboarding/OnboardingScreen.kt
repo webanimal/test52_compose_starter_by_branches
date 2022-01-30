@@ -25,7 +25,7 @@ fun OnboardingScreen(
 
     Surface {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -34,8 +34,8 @@ fun OnboardingScreen(
                 alignment = Alignment.Center
             )
             Button(
-                modifier = Modifier.padding(vertical = 24.dp),
-                onClick = { onContinueClick() }
+                onClick = { onContinueClick() },
+                Modifier.padding(vertical = 24.dp)
             ) {
                 Text(text = stringResource(id = R.string.onboarding_button_next_text))
             }

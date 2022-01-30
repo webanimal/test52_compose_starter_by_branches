@@ -16,11 +16,11 @@ fun TitleText(text: String) {
 
     Text(
         text = text,
-        style = MaterialTheme.typography.h3,
-        modifier = Modifier
+        Modifier
             .padding(all = 16.dp)
             .fillMaxWidth()
-            .wrapContentSize(align = Alignment.Center)
+            .wrapContentSize(align = Alignment.Center),
+        style = MaterialTheme.typography.h3,
     )
 }
 
@@ -29,11 +29,11 @@ fun SimpleText(text: String, alignment: Alignment? = null) {
 
     Text(
         text = text,
+        Modifier
+            .fillMaxWidth()
+            .wrapContentSize(align = alignment ?: Alignment.CenterStart),
         style = MaterialTheme.typography.body1.copy(
             fontWeight = FontWeight.ExtraBold
         ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentSize(align = alignment ?: Alignment.CenterStart)
     )
 }

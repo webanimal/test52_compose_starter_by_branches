@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="onboarding_welcome_text">Welcome to the Basics Codelab!</string>
+    <string name="onboarding_button_next_text">Continue</string>
+
     <string name="app_name">Compose Test</string>
     <string name="main_title_default">Hello World!</string>
     <string name="main_title_loading">Is loading…</string>
@@ -10,7 +13,7 @@
     <string name="main_item_title">Hello,</string>
     <string name="main_item_expandable_text">Composem ipsum color sit lazy, padding theme elit, sed do bouncy.</string>
 
-    <string name="onboarding_welcome_text">Welcome to the Basics Codelab!</string>
-    <string name="onboarding_button_next_text">Continue</string>
+    <string name="marketplace_item_title">Dudkin Sergio</string>
+    <string name="marketplace_item_text">7 minutes ago</string>
 
 </resources>
