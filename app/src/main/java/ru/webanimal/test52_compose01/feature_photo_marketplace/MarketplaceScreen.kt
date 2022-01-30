@@ -3,29 +3,23 @@ package ru.webanimal.test52_compose01.feature_photo_marketplace
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,12 +27,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.webanimal.test52_compose01.R
+import ru.webanimal.test52_compose01.core.compose.AvatarWithPlaceholder
+import ru.webanimal.test52_compose01.core.compose.DoubleText
 import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
@@ -106,30 +100,17 @@ private fun DoubleTextWithAvatarItem(
             .clickable { /**/ }
             .padding(all = 16.dp)
     ) {
-        Surface(
+        AvatarWithPlaceholder(
             Modifier.size(44.dp),
-            shape = CircleShape,
-            color = Color.LightGray.copy(alpha = 0.4f)
-        ) {
-            // Place image here
-        }
-        Column(
+            avatarUrl = AVATAR_URL
+        )
+        DoubleText(
             Modifier
                 .padding(start = 8.dp)
-                .align(alignment = Alignment.CenterVertically)
-        ) {
-            Text(
-                text = stringResource(id = R.string.marketplace_item_title),
-                fontWeight = FontWeight.Bold
-            )
-            // LocalContentAlpha is defining opacity level of its children
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(
-                    text = stringResource(id = R.string.marketplace_item_text, position),
-                    style = MaterialTheme.typography.body2
-                )
-            }
-        }
+                .align(alignment = Alignment.CenterVertically),
+            firstLineText = stringResource(id = R.string.marketplace_item_title),
+            secondLineText = stringResource(id = R.string.marketplace_item_text, position)
+        )
     }
 }
 
@@ -142,3 +123,4 @@ private fun DefaultPreview() {
 }
 
 private const val LIST_ITEM_COUNT = 100
+private const val AVATAR_URL = "https://developer.android.com/images/brand/Android_Robot.png"

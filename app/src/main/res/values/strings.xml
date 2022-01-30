@@ -15,6 +15,7 @@
 
     <string name="marketplace_item_title">Dudkin Sergio</string>
     <string name="marketplace_item_text">%1$d minutes ago</string>
+    <string name="marketplace_item_avatar_description">Logo</string>
     <string name="marketplace_top_bar_title">Hi there!</string>
     <string name="marketplace_top_bar_action_favorite_description">Add to favorite</string>
 
