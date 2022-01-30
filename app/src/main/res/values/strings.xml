@@ -13,10 +13,12 @@
     <string name="main_item_title">Hello,</string>
     <string name="main_item_expandable_text">Composem ipsum color sit lazy, padding theme elit, sed do bouncy.</string>
 
+    <string name="marketplace_top_bar_title">Hi there!</string>
+    <string name="marketplace_top_bar_action_favorite_description">Add to favorite</string>
+    <string name="marketplace_action_button_to_the_top">To the top</string>
+    <string name="marketplace_action_button_to_the_bottom">To the bottom</string>
     <string name="marketplace_item_title">Dudkin Sergio</string>
     <string name="marketplace_item_text">%1$d minutes ago</string>
     <string name="marketplace_item_avatar_description">Logo</string>
-    <string name="marketplace_top_bar_title">Hi there!</string>
-    <string name="marketplace_top_bar_action_favorite_description">Add to favorite</string>
 
 </resources>
