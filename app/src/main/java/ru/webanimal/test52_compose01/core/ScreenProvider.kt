@@ -3,7 +3,7 @@ package ru.webanimal.test52_compose01.core
 import androidx.compose.runtime.Composable
 import ru.webanimal.test52_compose01.feature_main.MainScreen
 import ru.webanimal.test52_compose01.feature_onboarding.OnboardingScreen
-import ru.webanimal.test52_compose01.feature_marketplace.MarketplaceScreen
+import ru.webanimal.test52_compose01.feature_contacts.ContactsScreen
 
 class ScreenProvider {
 
@@ -14,5 +14,5 @@ class ScreenProvider {
     fun Main() = MainScreen()
 
     @Composable
-    fun Marketplace() = MarketplaceScreen()
+    fun Marketplace() = ContactsScreen()
 }

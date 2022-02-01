@@ -1,4 +1,4 @@
-package ru.webanimal.test52_compose01.feature_marketplace
+package ru.webanimal.test52_compose01.feature_contacts
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -43,17 +43,17 @@ import ru.webanimal.test52_compose01.core.compose.DoubleText
 import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 @Composable
-internal fun MarketplaceScreen(
-    viewModel: MarketplaceViewModel = MarketplaceViewModel(),
+internal fun ContactsScreen(
+    viewModel: ContactsViewModel = ContactsViewModel(),
 ) {
 
     // For the future purposes
-    val marketplaceState by viewModel.marketplaceState.collectAsState()
+    val contactsState by viewModel.contactsState.collectAsState()
 
     Scaffold(
         topBar = { TopBarContent() }
     ) { innerPadding ->
-        BodyContent(Modifier.padding(innerPadding), marketplaceState)
+        BodyContent(Modifier.padding(innerPadding), contactsState)
     }
 }
 
@@ -64,7 +64,7 @@ private fun TopBarContent(modifier: Modifier = Modifier) {
 
     TopAppBar(
         title = {
-            Text(text = stringResource(id = R.string.marketplace_top_bar_title))
+            Text(text = stringResource(id = R.string.contacts_top_bar_title))
         },
         actions = {
             IconButton(onClick = {
@@ -72,7 +72,7 @@ private fun TopBarContent(modifier: Modifier = Modifier) {
             }) {
                 Icon(
                     imageVector = if (isAversVisible) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
-                    contentDescription = stringResource(id = R.string.marketplace_top_bar_action_favorite_description)
+                    contentDescription = stringResource(id = R.string.contacts_top_bar_action_favorite_description)
                 )
             }
         }
@@ -82,7 +82,7 @@ private fun TopBarContent(modifier: Modifier = Modifier) {
 @Composable
 private fun BodyContent(
     modifier: Modifier = Modifier,
-    marketplaceState: MarketplaceState,
+    contactsState: ContactsState,
 ) {
 
     val scrollState = rememberLazyListState()
@@ -91,7 +91,7 @@ private fun BodyContent(
     Column(modifier) {
         LazyColumn(Modifier.weight(1f), state = scrollState) {
             items(LIST_ITEM_COUNT) { pos ->
-                DoubleTextWithAvatarItem(position = pos, avatarUrl = marketplaceState.avatarUrl)
+                DoubleTextWithAvatarItem(position = pos, avatarUrl = contactsState.avatarUrl)
             }
         }
         ActionGroup(
@@ -126,7 +126,7 @@ private fun ActionGroup(
             Modifier.weight(1f, true)
         ) {
             Text(
-                text = stringResource(id = R.string.marketplace_action_button_to_the_top),
+                text = stringResource(id = R.string.contacts_action_button_to_the_top),
                 Modifier.wrapContentSize(align = Alignment.Center),
                 style = MaterialTheme.typography.button
             )
@@ -137,7 +137,7 @@ private fun ActionGroup(
             Modifier.weight(1f, true)
         ) {
             Text(
-                text = stringResource(id = R.string.marketplace_action_button_to_the_bottom),
+                text = stringResource(id = R.string.contacts_action_button_to_the_bottom),
                 Modifier.wrapContentSize(align = Alignment.Center),
                 style = MaterialTheme.typography.button
             )
@@ -169,8 +169,8 @@ private fun DoubleTextWithAvatarItem(
             Modifier
                 .padding(start = 8.dp)
                 .align(alignment = Alignment.CenterVertically),
-            firstLineText = stringResource(id = R.string.marketplace_item_title),
-            secondLineText = stringResource(id = R.string.marketplace_item_text, position)
+            firstLineText = stringResource(id = R.string.contacts_item_title),
+            secondLineText = stringResource(id = R.string.contacts_item_text, position)
         )
     }
 }
@@ -180,7 +180,7 @@ private fun DoubleTextWithAvatarItem(
 @Composable
 private fun DefaultPreview() {
 
-    ThemeWrapper { MarketplaceScreen() }
+    ThemeWrapper { ContactsScreen() }
 }
 
 private const val LIST_ITEM_COUNT = 100

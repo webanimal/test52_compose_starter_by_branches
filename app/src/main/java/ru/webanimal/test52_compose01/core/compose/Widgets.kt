@@ -84,7 +84,7 @@ fun AvatarWithPlaceholder(
     ) {
         Image(
             painter = rememberImagePainter(data = avatarUrl),
-            contentDescription = stringResource(id = string.marketplace_item_avatar_description),
+            contentDescription = stringResource(id = string.contacts_item_avatar_description),
             modifier = modifier.padding(all = 6.dp)
         )
     }
