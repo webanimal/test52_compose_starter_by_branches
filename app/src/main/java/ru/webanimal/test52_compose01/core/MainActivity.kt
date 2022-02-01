@@ -8,34 +8,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import ru.webanimal.test52_compose01.core.ScreenNavigator.CodelabType
 import ru.webanimal.test52_compose01.core.compose.ThemeWrapper
 
 class MainActivity : ComponentActivity() {
 
-    val screenProvider by lazy { ScreenProvider() }
+    private val navigator : ScreenNavigator by lazy { ScreenNavigator.provideNavigator() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ThemeWrapper { CodelabLayoutsApp() }
+            ThemeWrapper { CodelabApp() }
         }
     }
 
     @Composable
-    private fun CodelabLayoutsApp() {
-        screenProvider.Marketplace()
-    }
-
-    @Composable
-    private fun CodelabBasicsApp() {
-
+    private fun CodelabApp() {
         var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
         if (shouldShowOnboarding) {
-            screenProvider.Onboarding(onContinueClick = { shouldShowOnboarding = false })
+            navigator.NavigateTo(
+                CodelabType.Onboarding(onContinueClick = { shouldShowOnboarding = false })
+            )
 
         } else {
-            screenProvider.Main()
+            navigator.NavigateTo(CodelabType.Layouts.CustomLayout)
         }
     }
 }
