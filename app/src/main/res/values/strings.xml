@@ -21,4 +21,6 @@
     <string name="contacts_item_text">%1$d minutes ago</string>
     <string name="contacts_item_avatar_description">Logo</string>
 
+    <string name="layouts_custom_sample">Hi there!</string>
+
 </resources>
