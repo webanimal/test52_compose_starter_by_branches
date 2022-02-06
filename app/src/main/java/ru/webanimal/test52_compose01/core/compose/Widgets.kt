@@ -16,6 +16,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -87,5 +88,32 @@ fun AvatarWithPlaceholder(
             contentDescription = stringResource(id = string.contacts_item_avatar_description),
             modifier = modifier.padding(all = 6.dp)
         )
+    }
+}
+
+@Composable
+fun CustomColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+
+    Layout(
+        modifier = modifier,
+        content = content
+    ) { measurables, constraints ->
+
+        val placeables = measurables.map { it.measure(constraints) }
+        var previousY = 0
+
+        layout(
+            width = constraints.maxWidth,
+            height = constraints.maxHeight
+        ) {
+
+            placeables.forEach { placeable ->
+                placeable.placeRelative(0, previousY)
+                previousY += placeable.height
+            }
+        }
     }
 }
